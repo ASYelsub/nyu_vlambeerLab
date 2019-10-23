@@ -21,37 +21,50 @@ public class Pathmaker : MonoBehaviour {
 	int counter = 0;
 	public Transform floorPrefab;
 	public Transform pathmakerSpherePrefab;
+	public static int globalTileCount = 0;
 
 	void Update () {
+		
+		/*Ray ray = new Ray(transform.position,transform.forward);
+		float rayDist = .75f;
+		Debug.DrawRay(ray.origin,ray.direction*rayDist,Color.cyan);
+		if(!Physics.Raycast(ray,rayDist)){} */
 //		If counter is less than 50, then:
 //			Generate a random number from 0.0f to 1.0f;
 //			If random number is less than 0.25f, then rotate myself 90 degrees;
 //				... Else if number is 0.25f-0.5f, then rotate myself -90 degrees;
 //				... Else if number is 0.99f-1.0f, then instantiate a pathmakerSpherePrefab clone at my current position;
 //			// end elseIf
-		if (counter <= 50){
-			float i = Random.Range(0.0f, 1.0f);
-			if (i < 0.25f){
-				this.transform.Rotate(new Vector3(0,45,0));
-			}
-			else if (i >= 0.25f && i <= 0.5f ){
-				this.transform.Rotate(new Vector3(0,-45,0));
-			}
-			else if(i >= 0.99f && i <= 1.0f){
-				Instantiate(pathmakerSpherePrefab,transform.position,Quaternion.identity);
-			}
+		if(globalTileCount < 500){
+			if (counter <= 120){
+				float i = Random.Range(0.0f, 1.0f);
+				if (i < 0.25f){
+					this.transform.Rotate(new Vector3(0,45,0));
+				}
+				else if (i >= 0.25f && i <= 0.5f ){
+					this.transform.Rotate(new Vector3(0,-45,0));
+				}
+				else if(i >= 0.99f && i <= 1.0f){
+					Instantiate(pathmakerSpherePrefab,transform.position,Quaternion.identity);
+				}
 //			Instantiate a floorPrefab clone at current position;
-			Instantiate(floorPrefab, transform.position,Quaternion.identity);
+				Instantiate(floorPrefab, transform.position,Quaternion.identity);
+				globalTileCount++;
+				Debug.Log("globalTileCount= " + globalTileCount);
 //			Move forward ("forward", as in, the direction I'm currently facing) by 5 units;
-			this.transform.Translate(transform.forward*5);
+				this.transform.Translate(transform.forward*5);
 //			Increment counter;
-			counter++;
-		}else{
+				counter++;
+			}else{
 //		Else:
 //			Destroy my game object; 		// self destruct if I've made enough tiles already
+				Destroy(this);
+			}
+		}
+			
+		if (globalTileCount >= 500){
 			Destroy(this);
 		}
-
 
 
 	}
