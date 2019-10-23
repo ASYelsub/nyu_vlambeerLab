@@ -35,13 +35,13 @@ public class Pathmaker : MonoBehaviour {
 //				... Else if number is 0.25f-0.5f, then rotate myself -90 degrees;
 //				... Else if number is 0.99f-1.0f, then instantiate a pathmakerSpherePrefab clone at my current position;
 //			// end elseIf
-		if(globalTileCount < 500){
-			if (counter <= 120){
+		if(globalTileCount < 600){
+			if (counter <= 300){
 				float i = Random.Range(0.0f, 1.0f);
-				if (i < 0.25f){
+				if (i < 0.10f){
 					this.transform.Rotate(new Vector3(0,45,0));
 				}
-				else if (i >= 0.25f && i <= 0.5f ){
+				else if (i >= 0.10f && i <= 0.20f ){
 					this.transform.Rotate(new Vector3(0,-45,0));
 				}
 				else if(i >= 0.99f && i <= 1.0f){
